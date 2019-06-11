@@ -21,8 +21,8 @@ var getRandomItem = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-var getRandomNumberFromTo = function (coordFrom, coordTo) {
-  var randomNumber = coordFrom + Math.random() * (coordTo + 1 - coordFrom);
+var getRandomNumberFromTo = function (numberFrom, numberTo) {
+  var randomNumber = numberFrom + Math.random() * (numberTo + 1 - numberFrom);
   randomNumber = Math.floor(randomNumber);
   return randomNumber;
 };
@@ -66,7 +66,6 @@ var addPinsToMapPinList = function (pins) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pins.length; i++) {
     fragment.appendChild(renderPin(pins[i]));
-    // console.log(renderPin(pins[i]));
   }
   mapPinList.appendChild(fragment);
 };

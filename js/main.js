@@ -13,7 +13,7 @@ var mapBlock = document.querySelector('.map');
 var mapPinList = document.querySelector('.map__pins');
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var showMapBlock = function () {
+var enableMapBlock = function () {
   mapBlock.classList.remove('map--faded');
 };
 
@@ -28,11 +28,11 @@ var getRandomNumberFromTo = function (numberFrom, numberTo) {
 };
 
 var generateArrayLinkAvatars = function (array) {
-  var imageAdress = [];
+  var imageAdresses = [];
   for (var i = 0; i < array.length; i++) {
-    imageAdress[i] = 'img/avatars/user' + 0 + array[i] + '.png';
+    imageAdresses[i] = 'img/avatars/user' + 0 + array[i] + '.png';
   }
-  return imageAdress;
+  return imageAdresses;
 };
 
 var createPins = function (quantity) {
@@ -72,5 +72,5 @@ var addPinsToMapPinList = function (pins) {
 
 addPinsToMapPinList(createPins(PIN_NUMBERS));
 
-showMapBlock();
+enableMapBlock();
 

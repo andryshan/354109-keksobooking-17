@@ -1,13 +1,13 @@
 'use strict';
-var COORD_Y_START = 130;
-var COORD_Y_END = 630;
+var PIN_Y_START = 130;
+var PIN_Y_END = 630;
 var PIN_WIDTH_HALF = 50 / 2;
 var PIN_HEIGHT = 70;
-var MAP_WIDTH = 1200;
 var PIN_NUMBERS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var PICTURE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 var TITLE_IMAGE = 'заголовок объявления';
+var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
 
 var mapBlock = document.querySelector('.map');
 var mapPinList = document.querySelector('.map__pins');
@@ -47,7 +47,7 @@ var createPins = function (quantity) {
       },
       'location': {
         x: getRandomNumberFromTo(0, MAP_WIDTH) - PIN_WIDTH_HALF,
-        y: getRandomNumberFromTo(COORD_Y_START, COORD_Y_END) - PIN_HEIGHT
+        y: getRandomNumberFromTo(PIN_Y_START, PIN_Y_END) - PIN_HEIGHT
       }
     };
   }

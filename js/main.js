@@ -5,7 +5,6 @@ var PIN_WIDTH_HALF = 50 / 2;
 var PIN_HEIGHT = 70;
 var PIN_NUMBERS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
-var PICTURE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 var TITLE_IMAGE = 'заголовок объявления';
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
 
@@ -27,20 +26,12 @@ var getRandomNumberFromTo = function (numberFrom, numberTo) {
   return randomNumber;
 };
 
-var generateArrayLinkAvatars = function (array) {
-  var imageAdresses = [];
-  for (var i = 0; i < array.length; i++) {
-    imageAdresses[i] = 'img/avatars/user' + 0 + array[i] + '.png';
-  }
-  return imageAdresses;
-};
-
 var createPins = function (quantity) {
   var pins = [];
   for (var i = 0; i < quantity; i++) {
     pins[i] = {
       'author': {
-        avatar: generateArrayLinkAvatars(PICTURE_NUMBERS)[i]
+        avatar: 'img/avatars/user' + 0 + (i + 1) + '.png'
       },
       'offer': {
         type: getRandomItem(TYPES)

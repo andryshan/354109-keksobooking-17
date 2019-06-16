@@ -7,6 +7,7 @@ var PIN_NUMBERS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TITLE_IMAGE = 'заголовок объявления';
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
+var MAP_PIN_MAIN_HEIGHT = 87; // Высота главной метки с острием
 
 var mapBlock = document.querySelector('.map');
 var mapPinList = document.querySelector('.map__pins');
@@ -92,7 +93,7 @@ mapPinMain.addEventListener('click', onPinMainClick);
 
 var setCoordsToAdress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
-  var topCoord = mapPinMain.offsetTop - mapPinMain.offsetHeight;
+  var topCoord = mapPinMain.offsetTop - MAP_PIN_MAIN_HEIGHT;
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
     topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
   }

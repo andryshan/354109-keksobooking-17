@@ -93,7 +93,7 @@ mapPinMain.addEventListener('click', onPinMainClick);
 var setCoordsToAdress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
   var topCoord = mapPinMain.offsetTop - mapPinMain.offsetHeight;
-  if (!isActive) { // Если состояние неактивное
+  if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
     topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
   }
   formAdress.placeholder = leftCoord + ' ' + topCoord;

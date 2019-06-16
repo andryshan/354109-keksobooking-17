@@ -61,7 +61,50 @@ var addPinsToMapPinList = function (pins) {
   mapPinList.appendChild(fragment);
 };
 
-addPinsToMapPinList(createPins(PIN_NUMBERS));
+var mapPinMain = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var formFields = form.querySelectorAll('fieldset');
+var formAdress = form.querySelector('#address');
 
-enableMapBlock();
+var disableFields = function () {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].setAttribute('disabled', '');
+  }
+};
+
+disableFields(); // Отключаем филдсеты в неактивном состоянии (по дефолту)
+
+var activatePage = function () {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].removeAttribute('disabled');
+  }
+  form.classList.remove('ad-form--disabled');
+  enableMapBlock();
+  addPinsToMapPinList(createPins(PIN_NUMBERS));
+  mapPinMain.removeEventListener('click', onPinMainClick); // Удаляем обработчик, чтобы при новом клике не добавлялись новые пины
+};
+
+var onPinMainClick = function () {
+  activatePage();
+};
+
+mapPinMain.addEventListener('click', onPinMainClick);
+
+var setCoordsToAdress = function (isActive) {
+  var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
+  var topCoord = mapPinMain.offsetTop - mapPinMain.offsetHeight;
+  if (!isActive) { // Если состояние неактивное
+    topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
+  }
+  formAdress.placeholder = leftCoord + ' ' + topCoord;
+  return formAdress.placeholder;
+};
+
+setCoordsToAdress(false); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
+
+var onPinMainMouseup = function () {
+  setCoordsToAdress(true); // Выставляем координаты с учетом где находится острие
+};
+
+mapPinMain.addEventListener('mouseup', onPinMainMouseup);
 

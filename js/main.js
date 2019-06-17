@@ -97,8 +97,8 @@ var setCoordsToAdress = function (isActive) {
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
     topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
   }
-  formAdress.placeholder = leftCoord + ' ' + topCoord;
-  return formAdress.placeholder;
+  formAdress.value = leftCoord + ' ' + topCoord;
+  return formAdress.value;
 };
 
 setCoordsToAdress(false); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
@@ -108,4 +108,5 @@ var onPinMainMouseup = function () {
 };
 
 mapPinMain.addEventListener('mouseup', onPinMainMouseup);
+
 

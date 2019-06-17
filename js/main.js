@@ -97,7 +97,7 @@ var setCoordsToAdress = function (isActive) {
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
     topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
   }
-  formAdress.value = leftCoord + ' ' + topCoord;
+  formAdress.value = leftCoord + ', ' + topCoord;
   return formAdress.value;
 };
 

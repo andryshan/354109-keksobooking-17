@@ -67,18 +67,18 @@ var addPinsToMapPinList = function (pins) {
 var mapPinMain = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var formFields = form.querySelectorAll('fieldset');
-var adressField = form.querySelector('#address');
+var addressField = form.querySelector('#address');
 
-var toggleForm = function (disable) {
+var setStateToForm = function (disable) {
   for (var i = 0; i < formFields.length; i++) {
     formFields[i].disabled = disable;
   }
 };
 
-toggleForm(FIELDS_DISABLE); // Отключаем филдсеты в неактивном состоянии (по дефолту)
+setStateToForm(FIELDS_DISABLE); // Отключаем филдсеты в неактивном состоянии (по дефолту)
 
 var activatePage = function () {
-  toggleForm();
+  setStateToForm();
   form.classList.remove('ad-form--disabled');
   enableMapBlock();
   addPinsToMapPinList(createPins(PIN_NUMBERS));
@@ -97,8 +97,8 @@ var setCoordsToAdress = function (isActive) {
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
     topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
   }
-  adressField.value = leftCoord + ', ' + topCoord;
-  return adressField.value;
+  addressField.value = leftCoord + ', ' + topCoord;
+  return addressField.value;
 };
 
 setCoordsToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)

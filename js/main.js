@@ -7,6 +7,9 @@ var PIN_NUMBERS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TITLE_IMAGE = 'заголовок объявления';
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
+var MAP_PIN_MAIN_HEIGHT = 87; // Высота главной метки с острием
+var FIELDS_DISABLE = true;
+var MAP_ACTIVE_STATE = true;
 
 var mapBlock = document.querySelector('.map');
 var mapPinList = document.querySelector('.map__pins');
@@ -61,7 +64,48 @@ var addPinsToMapPinList = function (pins) {
   mapPinList.appendChild(fragment);
 };
 
-addPinsToMapPinList(createPins(PIN_NUMBERS));
+var mapPinMain = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var formFields = form.querySelectorAll('fieldset');
+var addressField = form.querySelector('#address');
 
-enableMapBlock();
+var setStateToForm = function (disable) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].disabled = disable;
+  }
+};
+
+setStateToForm(FIELDS_DISABLE); // Отключаем филдсеты в неактивном состоянии (по дефолту)
+
+var activatePage = function () {
+  setStateToForm();
+  form.classList.remove('ad-form--disabled');
+  enableMapBlock();
+  addPinsToMapPinList(createPins(PIN_NUMBERS));
+  mapPinMain.removeEventListener('click', onPinMainClick); // Удаляем обработчик, чтобы при новом клике не добавлялись новые пины
+};
+
+var onPinMainClick = function () {
+  activatePage();
+};
+
+mapPinMain.addEventListener('click', onPinMainClick);
+
+var setCoordsToAdress = function (isActive) {
+  var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
+  var topCoord = mapPinMain.offsetTop - MAP_PIN_MAIN_HEIGHT;
+  if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
+    topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
+  }
+  addressField.value = leftCoord + ', ' + topCoord;
+  return addressField.value;
+};
+
+setCoordsToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
+
+var onPinMainMouseup = function () {
+  setCoordsToAdress(MAP_ACTIVE_STATE); // Выставляем координаты с учетом где находится острие
+};
+
+mapPinMain.addEventListener('mouseup', onPinMainMouseup);
 

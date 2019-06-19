@@ -109,3 +109,52 @@ var onPinMainMouseup = function () {
 
 mapPinMain.addEventListener('mouseup', onPinMainMouseup);
 
+var minPricesOfTypes = [
+  {
+    type: 'palace',
+    minprice: 10000
+  },
+  {
+    type: 'house',
+    minprice: 5000
+  },
+  {
+    type: 'flat',
+    minprice: 1000
+  },
+  {
+    type: 'bungalo',
+    minprice: 0
+  }
+];
+
+var typeOfHousing = form.querySelector('#type');
+var priceField = form.querySelector('#price');
+
+var onTypeOfHousingChange = function (evt) {
+  for (var i = 0; i < minPricesOfTypes.length; i++) {
+    if (evt.target.value === minPricesOfTypes[i].type) {
+      priceField.placeholder = minPricesOfTypes[i].minprice;
+      priceField.min = minPricesOfTypes[i].minprice;
+    }
+  }
+};
+
+typeOfHousing.addEventListener('change', onTypeOfHousingChange);
+
+var timeInField = form.querySelector('#timein');
+var timeOutField = form.querySelector('#timeout');
+
+var onTimeInFieldChange = function () {
+  timeOutField.value = timeInField.value;
+};
+
+var onTimeOutFieldChange = function () {
+  timeInField.value = timeOutField.value;
+};
+
+timeInField.addEventListener('change', onTimeInFieldChange);
+
+timeOutField.addEventListener('change', onTimeOutFieldChange);
+
+

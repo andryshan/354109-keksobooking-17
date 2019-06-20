@@ -109,35 +109,20 @@ var onPinMainMouseup = function () {
 
 mapPinMain.addEventListener('mouseup', onPinMainMouseup);
 
-var minPricesOfTypes = [
-  {
-    type: 'palace',
-    minprice: 10000
-  },
-  {
-    type: 'house',
-    minprice: 5000
-  },
-  {
-    type: 'flat',
-    minprice: 1000
-  },
-  {
-    type: 'bungalo',
-    minprice: 0
-  }
-];
+var minPricesOfTypes = {
+  palace: 10000,
+  house: 5000,
+  flat: 1000,
+  bungalo: 0
+};
 
 var typeOfHousing = form.querySelector('#type');
 var priceField = form.querySelector('#price');
 
-var onTypeOfHousingChange = function (evt) {
-  for (var i = 0; i < minPricesOfTypes.length; i++) {
-    if (evt.target.value === minPricesOfTypes[i].type) {
-      priceField.placeholder = minPricesOfTypes[i].minprice;
-      priceField.min = minPricesOfTypes[i].minprice;
-    }
-  }
+var onTypeOfHousingChange = function () {
+  var minValue = typeOfHousing.value;
+  priceField.placeholder = minPricesOfTypes[minValue];
+  priceField.min = minPricesOfTypes[minValue];
 };
 
 typeOfHousing.addEventListener('change', onTypeOfHousingChange);

@@ -1,13 +1,17 @@
 'use strict';
 var PIN_Y_START = 130;
 var PIN_Y_END = 630;
+var PIN_X_START = 0;
+var PIN_X_END = 1200;
+var PIN_MAIN_WIDTH = 65;
+var MAP_PIN_MAIN_HEIGHT = 87; // Высота главной метки с острием
+
 var PIN_WIDTH_HALF = 50 / 2;
 var PIN_HEIGHT = 70;
 var PIN_NUMBERS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TITLE_IMAGE = 'заголовок объявления';
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
-var MAP_PIN_MAIN_HEIGHT = 87; // Высота главной метки с острием
 var FIELDS_DISABLE = true;
 var MAP_ACTIVE_STATE = true;
 
@@ -81,15 +85,7 @@ var activatePage = function () {
   setStateToForm();
   form.classList.remove('ad-form--disabled');
   enableMapBlock();
-  addPinsToMapPinList(createPins(PIN_NUMBERS));
-  mapPinMain.removeEventListener('click', onPinMainClick); // Удаляем обработчик, чтобы при новом клике не добавлялись новые пины
 };
-
-var onPinMainClick = function () {
-  activatePage();
-};
-
-mapPinMain.addEventListener('click', onPinMainClick);
 
 var setCoordsToAdress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
@@ -102,12 +98,6 @@ var setCoordsToAdress = function (isActive) {
 };
 
 setCoordsToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
-
-var onPinMainMouseup = function () {
-  setCoordsToAdress(MAP_ACTIVE_STATE); // Выставляем координаты с учетом где находится острие
-};
-
-mapPinMain.addEventListener('mouseup', onPinMainMouseup);
 
 var minPricesOfTypes = {
   palace: 10000,
@@ -142,4 +132,56 @@ timeInField.addEventListener('change', onTimeInFieldChange);
 
 timeOutField.addEventListener('change', onTimeOutFieldChange);
 
+var onPinMainClick = function (evt) {
+  evt.preventDefault();
+
+  var startCoordinates = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var onPinMainMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    var shift = {
+      x: startCoordinates.x - moveEvt.clientX,
+      y: startCoordinates.y - moveEvt.clientY
+    };
+
+    startCoordinates = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    var currentCoordinateX = mapPinMain.offsetLeft - shift.x;
+    var currentCoordinateY = mapPinMain.offsetTop - shift.y;
+
+    if (currentCoordinateX >= PIN_X_START && currentCoordinateX <= PIN_X_END - PIN_MAIN_WIDTH) {
+      mapPinMain.style.left = currentCoordinateX + 'px';
+    }
+
+    if (currentCoordinateY >= PIN_Y_START && currentCoordinateY <= PIN_Y_END) {
+      mapPinMain.style.top = currentCoordinateY + 'px';
+    }
+
+    if (mapBlock.classList.contains('map--faded')) {
+      setCoordsToAdress();
+    } else {
+      setCoordsToAdress(MAP_ACTIVE_STATE);
+    }
+  };
+
+  var onPinMainMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    activatePage();
+    setCoordsToAdress(MAP_ACTIVE_STATE);
+    addPinsToMapPinList(createPins(PIN_NUMBERS));
+    mapBlock.removeEventListener('mousemove', onPinMainMove);
+    mapBlock.removeEventListener('mouseup', onPinMainMouseUp);
+  };
+
+  mapBlock.addEventListener('mousemove', onPinMainMove);
+  mapBlock.addEventListener('mouseup', onPinMainMouseUp);
+};
+
+mapPinMain.addEventListener('mousedown', onPinMainClick);
 

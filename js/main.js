@@ -68,6 +68,10 @@ var addPinsToMapPinList = function (pins) {
   mapPinList.appendChild(fragment);
 };
 
+var renderPins = function () {
+  addPinsToMapPinList(createPins(PIN_NUMBERS));
+};
+
 var mapPinMain = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var formFields = form.querySelectorAll('fieldset');
@@ -87,7 +91,7 @@ var activatePage = function () {
   enableMapBlock();
 };
 
-var setCoordsToAdress = function (isActive) {
+var setСoordinatesToAdress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
   var topCoord = mapPinMain.offsetTop - MAP_PIN_MAIN_HEIGHT;
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
@@ -97,7 +101,7 @@ var setCoordsToAdress = function (isActive) {
   return addressField.value;
 };
 
-setCoordsToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
+setСoordinatesToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
 
 var minPricesOfTypes = {
   palace: 10000,
@@ -164,21 +168,28 @@ var onPinMainClick = function (evt) {
     }
 
     if (mapBlock.classList.contains('map--faded')) {
-      setCoordsToAdress();
+      setСoordinatesToAdress();
     } else {
-      setCoordsToAdress(MAP_ACTIVE_STATE);
+      setСoordinatesToAdress(MAP_ACTIVE_STATE);
     }
   };
 
   var onPinMainMouseUp = function (upEvt) {
     upEvt.preventDefault();
     activatePage();
-    setCoordsToAdress(MAP_ACTIVE_STATE);
-    addPinsToMapPinList(createPins(PIN_NUMBERS));
+    setСoordinatesToAdress(MAP_ACTIVE_STATE);
     mapBlock.removeEventListener('mousemove', onPinMainMove);
     mapBlock.removeEventListener('mouseup', onPinMainMouseUp);
   };
 
+  var onActivePinMouseUp = function () {
+    if (mapBlock.classList.contains('map--faded')) {
+      renderPins();
+    }
+    mapPinMain.removeEventListener('mouseup', onActivePinMouseUp);
+  };
+
+  mapPinMain.addEventListener('mouseup', onActivePinMouseUp);
   mapBlock.addEventListener('mousemove', onPinMainMove);
   mapBlock.addEventListener('mouseup', onPinMainMouseUp);
 };

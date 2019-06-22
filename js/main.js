@@ -4,7 +4,7 @@ var PIN_Y_END = 630;
 var PIN_X_START = 0;
 var PIN_X_END = 1200;
 var PIN_MAIN_WIDTH = 65;
-var MAP_PIN_MAIN_HEIGHT = 87; // Высота главной метки с острием
+var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
 
 var PIN_WIDTH_HALF = 50 / 2;
 var PIN_HEIGHT = 70;
@@ -93,9 +93,9 @@ var activatePage = function () {
 
 var setСoordinatesToAdress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
-  var topCoord = mapPinMain.offsetTop - MAP_PIN_MAIN_HEIGHT;
+  var topCoord = mapPinMain.offsetTop + MAP_PIN_MAIN_HEIGHT;
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия
-    topCoord = mapPinMain.offsetTop - Math.round(mapPinMain.offsetHeight / 2);
+    topCoord = mapPinMain.offsetTop + Math.round(mapPinMain.offsetHeight / 2);
   }
   addressField.value = leftCoord + ', ' + topCoord;
   return addressField.value;

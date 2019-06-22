@@ -91,7 +91,7 @@ var activatePage = function () {
   enableMapBlock();
 };
 
-var setСoordinatesToAdress = function (isActive) {
+var setСoordinatesToAddress = function (isActive) {
   var leftCoord = mapPinMain.offsetLeft + Math.round(mapPinMain.offsetWidth / 2);
   var topCoord = mapPinMain.offsetTop + MAP_PIN_MAIN_HEIGHT;
   if (!isActive) { // Если состояние неактивное, то коорд по y будет другая, т.к. нет острия

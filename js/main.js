@@ -101,7 +101,7 @@ var setСoordinatesToAddress = function (isActive) {
   return addressField.value;
 };
 
-setСoordinatesToAdress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
+setСoordinatesToAddress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
 
 var minPricesOfTypes = {
   palace: 10000,
@@ -168,16 +168,16 @@ var onPinMainClick = function (evt) {
     }
 
     if (mapBlock.classList.contains('map--faded')) {
-      setСoordinatesToAdress();
+      setСoordinatesToAddress();
     } else {
-      setСoordinatesToAdress(MAP_ACTIVE_STATE);
+      setСoordinatesToAddress(MAP_ACTIVE_STATE);
     }
   };
 
   var onPinMainMouseUp = function (upEvt) {
     upEvt.preventDefault();
     activatePage();
-    setСoordinatesToAdress(MAP_ACTIVE_STATE);
+    setСoordinatesToAddress(MAP_ACTIVE_STATE);
     mapBlock.removeEventListener('mousemove', onPinMainMove);
     mapBlock.removeEventListener('mouseup', onPinMainMouseUp);
   };

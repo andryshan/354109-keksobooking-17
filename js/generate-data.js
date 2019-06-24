@@ -7,7 +7,7 @@
   var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth; // 1200
 
-  var createPins = function (quantity) {
+  var generateData = function (quantity) {
     var pins = [];
     for (var i = 0; i < quantity; i++) {
       pins[i] = {
@@ -26,6 +26,6 @@
     return pins;
   };
 
-  window.createPins = createPins;
+  window.generateData = generateData;
 })();
 

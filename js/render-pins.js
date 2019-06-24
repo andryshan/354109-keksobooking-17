@@ -22,8 +22,10 @@
     mapPinList.appendChild(fragment);
   };
 
-  window.renderPins = function () {
-    addPinsToMapPinList(window.createPins(PIN_NUMBERS));
+  var renderPins = function () {
+    addPinsToMapPinList(window.generateData(PIN_NUMBERS));
   };
+
+  window.renderPins = renderPins;
 })();
 

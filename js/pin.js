@@ -6,9 +6,14 @@
   var PIN_X_END = 1200;
   var PIN_MAIN_WIDTH = 65;
   var MAP_ACTIVE_STATE = true;
+  var MAP_DISABLE_STATE = true;
 
   var mapBlock = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
+
+  var enableMapBlock = function () {
+    mapBlock.classList.remove('map--faded');
+  };
 
   var onPinMainClick = function (evt) {
     evt.preventDefault();
@@ -42,7 +47,7 @@
       }
 
       if (mapBlock.classList.contains('map--faded')) {
-        window.form.setСoordinatesToAddress();
+        window.form.setСoordinatesToAddress(MAP_DISABLE_STATE);
       } else {
         window.form.setСoordinatesToAddress(MAP_ACTIVE_STATE);
       }
@@ -50,7 +55,8 @@
 
     var onPinMainMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.activatePage();
+      window.form.activateForm();
+      enableMapBlock();
       window.form.setСoordinatesToAddress(MAP_ACTIVE_STATE);
       mapBlock.removeEventListener('mousemove', onPinMainMove);
       mapBlock.removeEventListener('mouseup', onPinMainMouseUp);

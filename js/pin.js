@@ -6,7 +6,7 @@
   var PIN_X_END = 1200;
   var PIN_MAIN_WIDTH = 65;
   var MAP_ACTIVE_STATE = true;
-  var MAP_DISABLE_STATE = true;
+  var MAP_DISABLE_STATE = false;
 
   var mapBlock = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');

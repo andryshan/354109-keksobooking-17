@@ -29,7 +29,6 @@
       topCoord = mapPinMain.offsetTop + Math.round(mapPinMain.offsetHeight / 2);
     }
     addressField.value = leftCoord + ', ' + topCoord;
-    return addressField.value;
   };
 
   setСoordinatesToAddress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)

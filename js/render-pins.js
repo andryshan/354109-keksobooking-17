@@ -1,6 +1,7 @@
 'use strict';
 (function () {
-  var PIN_NUMBERS = 8;
+  var PIN_WIDTH_HALF = 50 / 2;
+  var PIN_HEIGHT = 70;
 
   var mapPinList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -9,13 +10,13 @@
     var pinElement = mapPinTemplate.cloneNode(true);
     pinElement.querySelector('img').src = pin['author'].avatar;
     pinElement.querySelector('img').alt = pin['offer'].title;
-    pinElement.style = 'left: ' + pin['location'].x + 'px;' + 'top: ' + pin['location'].y + 'px;';
+    pinElement.style = 'left: ' + (pin['location'].x - PIN_WIDTH_HALF) + 'px;' + 'top: ' + (pin['location'].y - PIN_HEIGHT) + 'px;';
     return pinElement;
   };
 
   var addPinsToMapPinList = function (pins) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < PIN_NUMBERS; i++) {
+    for (var i = 0; i < pins.length; i++) {
       fragment.appendChild(renderPin(pins[i]));
     }
     mapPinList.appendChild(fragment);

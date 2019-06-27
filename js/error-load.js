@@ -14,7 +14,9 @@
 
   var showErrorAlert = function () {
     main.appendChild(errorTemplate);
+    buttonError.addEventListener('click', onButtonErrorClick);
     document.addEventListener('keydown', onErrorAlertLoadEscPress);
+    document.addEventListener('click', onPopupErrorClick);
   };
 
   var closeErrorAlert = function () {
@@ -27,13 +29,9 @@
     closeErrorAlert();
   };
 
-  buttonError.addEventListener('click', onButtonErrorClick);
-
   var onPopupErrorClick = function () {
     closeErrorAlert();
   };
-
-  document.addEventListener('click', onPopupErrorClick);
 
   window.errorLoad = renderErrorLoad;
 })();

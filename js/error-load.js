@@ -14,16 +14,26 @@
 
   var showErrorAlert = function () {
     main.appendChild(errorTemplate);
-    buttonError.addEventListener('click', closeErrorAlert);
-    document.addEventListener('click', closeErrorAlert);
     document.addEventListener('keydown', onErrorAlertLoadEscPress);
   };
 
   var closeErrorAlert = function () {
     main.removeChild(errorTemplate);
-    document.removeEventListener('click', closeErrorAlert);
     document.removeEventListener('keydown', onErrorAlertLoadEscPress);
+    document.removeEventListener('click', onPopupErrorClick);
   };
+
+  var onButtonErrorClick = function () {
+    closeErrorAlert();
+  };
+
+  buttonError.addEventListener('click', onButtonErrorClick);
+
+  var onPopupErrorClick = function () {
+    closeErrorAlert();
+  };
+
+  document.addEventListener('click', onPopupErrorClick);
 
   window.errorLoad = renderErrorLoad;
 })();

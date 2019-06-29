@@ -2,15 +2,12 @@
 (function () {
   var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
   var FIELDS_DISABLE = true;
-  var mapBlock = document.querySelector('.map');
+  var FIELDS_ACTIVE = false;
+
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var formFields = form.querySelectorAll('fieldset');
   var addressField = form.querySelector('#address');
-
-  var enableMapBlock = function () {
-    mapBlock.classList.remove('map--faded');
-  };
 
   var setStateToForm = function (disable) {
     for (var i = 0; i < formFields.length; i++) {
@@ -20,10 +17,9 @@
 
   setStateToForm(FIELDS_DISABLE); // Отключаем филдсеты в неактивном состоянии (по дефолту)
 
-  var activatePage = function () {
-    setStateToForm();
+  var activateForm = function () {
+    setStateToForm(FIELDS_ACTIVE);
     form.classList.remove('ad-form--disabled');
-    enableMapBlock();
   };
 
   var setСoordinatesToAddress = function (isActive) {
@@ -33,7 +29,6 @@
       topCoord = mapPinMain.offsetTop + Math.round(mapPinMain.offsetHeight / 2);
     }
     addressField.value = leftCoord + ', ' + topCoord;
-    return addressField.value;
   };
 
   setСoordinatesToAddress(); // Выставляем координаты главного пина в адрес инпута при неактивном состоянии (по середине, без учета острия)
@@ -72,7 +67,7 @@
   timeOutField.addEventListener('change', onTimeOutFieldChange);
 
   window.form = {
-    activatePage: activatePage,
+    activateForm: activateForm,
     setСoordinatesToAddress: setСoordinatesToAddress
   };
 })();

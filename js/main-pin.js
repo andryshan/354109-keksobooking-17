@@ -47,24 +47,24 @@
       }
 
       if (mapBlock.classList.contains('map--faded')) {
-        window.form.setСoordinatesToAddress(MAP_DISABLE_STATE);
+        window.form.setСoordinates(MAP_DISABLE_STATE);
       } else {
-        window.form.setСoordinatesToAddress(MAP_ACTIVE_STATE);
+        window.form.setСoordinates(MAP_ACTIVE_STATE);
       }
     };
 
     var onPinMainMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.activateForm();
+      window.form.activate();
       enableMapBlock();
-      window.form.setСoordinatesToAddress(MAP_ACTIVE_STATE);
+      window.form.setСoordinates(MAP_ACTIVE_STATE);
       mapBlock.removeEventListener('mousemove', onPinMainMove);
       mapBlock.removeEventListener('mouseup', onPinMainMouseUp);
     };
 
     var onActivePinMouseUp = function () {
       if (mapBlock.classList.contains('map--faded')) {
-        window.renderPins();
+        window.pins.render();
       }
       mapPinMain.removeEventListener('mouseup', onActivePinMouseUp);
     };

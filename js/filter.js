@@ -11,7 +11,7 @@
         }
         return it.offer.type !== evt.target.value;
       });
-      window.pins.append(filteredPins);
+      window.map.append(filteredPins);
     };
     housingType.addEventListener('change', onChangeType);
   };

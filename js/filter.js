@@ -2,19 +2,24 @@
 (function () {
   var housingType = document.querySelector('#housing-type');
 
+  var copyPinsData;
   var filteredData = function (data) {
-    var onChangeType = function (evt) {
-      window.map.clearMap();
-      var filteredPins = data.filter(function (it) {
-        if (evt.target.value !== 'any') {
-          return it.offer.type === evt.target.value;
-        }
-        return it.offer.type !== evt.target.value;
-      });
-      window.map.append(filteredPins);
-    };
-    housingType.addEventListener('change', onChangeType);
+    copyPinsData = data;
+    var filteredPins = copyPinsData.filter(function (it) {
+      if (housingType.value !== 'any') {
+        return it.offer.type === housingType.value;
+      }
+      return it.offer.type !== housingType.value;
+    });
+    return filteredPins;
   };
+
+  var onSelectFilterChange = function () {
+    window.map.clearMap();
+    window.map.append(filteredData(copyPinsData));
+  };
+
+  housingType.addEventListener('change', onSelectFilterChange);
 
   window.filter = filteredData;
 })();

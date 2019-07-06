@@ -3,10 +3,8 @@
   var MAX_COUNT_PINS = 5;
 
   var downloadData = function (data) {
-    var pinsCopy = [];
-    pinsCopy = data;
-    window.pins.add(pinsCopy.slice(0, MAX_COUNT_PINS));
-    window.filter(pinsCopy);
+    window.pins.add(data.slice(0, MAX_COUNT_PINS));
+    window.filter(data);
   };
 
   var clearMapFromPins = function () {

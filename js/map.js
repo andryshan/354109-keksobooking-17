@@ -2,11 +2,6 @@
 (function () {
   var MAX_COUNT_PINS = 5;
 
-  var downloadData = function (data) {
-    window.pins.add(data.slice(0, MAX_COUNT_PINS));
-    window.filter(data);
-  };
-
   var clearMapFromPins = function () {
     var mapPins = document.querySelectorAll('.map__pin');
     mapPins.forEach(function (element) {
@@ -22,7 +17,6 @@
 
   window.map = {
     clearMap: clearMapFromPins,
-    download: downloadData,
     append: appendFiltredPinsToMap
   };
 })();

@@ -7,8 +7,8 @@
 
   var downloadData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
-    var onFilterSelectChange = function (evt) {
-      var filtredPins = window.filter(data, evt);
+    var onFilterSelectChange = function () {
+      var filtredPins = window.filter(data);
       clearMapFromPins();
       window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
     };

@@ -2,7 +2,6 @@
 (function () {
   var PIN_WIDTH_HALF = 50 / 2;
   var PIN_HEIGHT = 70;
-  var MAX_COUNT_PINS = 5;
 
   var mapPinList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -24,13 +23,8 @@
     mapPinList.appendChild(fragment);
   };
 
-  var downloadData = function (data) {
-    addPinsToMapPinList(data.slice(0, MAX_COUNT_PINS));
-    window.filter(data);
-  };
-
   var renderPins = function () {
-    window.backend.load(downloadData, window.errorLoad);
+    window.backend.load(window.map.download, window.errorLoad);
   };
 
   window.pins = {

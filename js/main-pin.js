@@ -11,10 +11,6 @@
   var mapBlock = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
 
-  var enableMapBlock = function () {
-    mapBlock.classList.remove('map--faded');
-  };
-
   var onPinMainClick = function (evt) {
     evt.preventDefault();
 
@@ -56,7 +52,7 @@
     var onPinMainMouseUp = function (upEvt) {
       upEvt.preventDefault();
       window.form.activate();
-      enableMapBlock();
+      window.map.enable();
       window.form.setСoordinates(MAP_ACTIVE_STATE);
       mapBlock.removeEventListener('mousemove', onPinMainMove);
       mapBlock.removeEventListener('mouseup', onPinMainMouseUp);

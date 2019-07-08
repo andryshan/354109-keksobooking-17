@@ -1,23 +1,34 @@
 'use strict';
 (function () {
   var MAX_COUNT_PINS = 5;
+  var mapBlock = document.querySelector('.map');
+
+  var housingType = document.querySelector('#housing-type');
+
+  var downloadData = function (data) {
+    window.pins.add(data.slice(0, MAX_COUNT_PINS));
+    var onFilterSelectChange = function (evt) {
+      var filtredPins = window.filter(data, evt);
+      clearMapFromPins();
+      window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
+    };
+    housingType.addEventListener('change', onFilterSelectChange);
+  };
 
   var clearMapFromPins = function () {
-    var mapPins = document.querySelectorAll('.map__pin');
+    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPins.forEach(function (element) {
-      if (!element.classList.contains('map__pin--main')) {
-        element.remove();
-      }
+      element.remove();
     });
   };
 
-  var appendFiltredPinsToMap = function (filtredPins) {
-    window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
+  var enableMapBlock = function () {
+    mapBlock.classList.remove('map--faded');
   };
 
   window.map = {
-    clearMap: clearMapFromPins,
-    append: appendFiltredPinsToMap
+    download: downloadData,
+    enable: enableMapBlock
   };
 })();
 

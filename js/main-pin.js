@@ -60,7 +60,7 @@
 
     var onActivePinMouseUp = function () {
       if (mapBlock.classList.contains('map--faded')) {
-        window.pins.render();
+        window.map.fill();
       }
       mapPinMain.removeEventListener('mouseup', onActivePinMouseUp);
     };

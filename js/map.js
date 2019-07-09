@@ -5,7 +5,7 @@
 
   var housingType = document.querySelector('#housing-type');
 
-  var downloadData = function (data) {
+  var downloadRequestData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
     var onFilterSelectChange = function () {
       var filtredPins = window.filter(data);
@@ -26,9 +26,13 @@
     mapBlock.classList.remove('map--faded');
   };
 
+  var fillMapWidthAds = function () {
+    window.backend.load(downloadRequestData, window.errorLoad);
+  };
+
   window.map = {
-    download: downloadData,
-    enable: enableMapBlock
+    enable: enableMapBlock,
+    fill: fillMapWidthAds
   };
 })();
 

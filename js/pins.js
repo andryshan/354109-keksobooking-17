@@ -23,12 +23,7 @@
     mapPinList.appendChild(fragment);
   };
 
-  var renderPins = function () {
-    window.backend.load(window.map.download, window.errorLoad);
-  };
-
   window.pins = {
-    render: renderPins,
     add: addPinsToMapPinList
   };
 })();

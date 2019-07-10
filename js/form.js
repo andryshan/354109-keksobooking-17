@@ -67,8 +67,8 @@
   timeOutField.addEventListener('change', onTimeOutFieldChange);
 
   window.form = {
-    activateForm: activateForm,
-    setСoordinatesToAddress: setСoordinatesToAddress
+    activate: activateForm,
+    setСoordinates: setСoordinatesToAddress
   };
 })();
 

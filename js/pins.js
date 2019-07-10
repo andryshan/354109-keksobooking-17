@@ -15,17 +15,16 @@
   };
 
   var addPinsToMapPinList = function (pins) {
+    var takeNumber = pins.length;
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pins.length; i++) {
+    for (var i = 0; i < takeNumber; i++) {
       fragment.appendChild(renderPin(pins[i]));
     }
     mapPinList.appendChild(fragment);
   };
 
-  var renderPins = function () {
-    window.backend.load(addPinsToMapPinList, window.errorLoad);
+  window.pins = {
+    add: addPinsToMapPinList
   };
-
-  window.renderPins = renderPins;
 })();
 

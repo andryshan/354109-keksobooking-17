@@ -24,16 +24,18 @@
     });
   };
 
-  var createFeatureElement = function (parent, featuresArray) {
+  var appendFeatureElements = function (parentElement, featuresArray) {
+    removeChildrenFromParent(parentElement);
     featuresArray.forEach(function (featureItem) {
       var featuresListElement = document.createElement('li');
       featuresListElement.classList.add('popup__feature');
       featuresListElement.classList.add('popup__feature--' + featureItem + '');
-      parent.appendChild(featuresListElement);
+      parentElement.appendChild(featuresListElement);
     });
   };
 
-  var createPhotoElement = function (parent, photosArray) {
+  var appendPhotoElements = function (parentElement, photosArray) {
+    removeChildrenFromParent(parentElement);
     photosArray.forEach(function (photo) {
       var photoElement = document.createElement('img');
       photoElement.classList.add('popup__photo');
@@ -41,7 +43,7 @@
       photoElement.style.height = sizePhoto.HEIGHT + 'px';
       photoElement.alt = 'Фотография жилья';
       photoElement.src = photo;
-      parent.appendChild(photoElement);
+      parentElement.appendChild(photoElement);
     });
   };
 
@@ -57,18 +59,14 @@
     cardElement.querySelector('.popup__description').textContent = card['offer'].description;
 
     var featuresList = cardElement.querySelector('.popup__features');
-    removeChildrenFromParent(featuresList);
-
-    createFeatureElement(featuresList, card['offer'].features);
+    appendFeatureElements(featuresList, card['offer'].features);
 
     if (card['offer'].features.length === 0) {
       featuresList.style.display = 'none';
     }
 
     var photosList = cardElement.querySelector('.popup__photos');
-    removeChildrenFromParent(photosList);
-
-    createPhotoElement(photosList, card['offer'].photos);
+    appendPhotoElements(photosList, card['offer'].photos);
 
     return cardElement;
   };

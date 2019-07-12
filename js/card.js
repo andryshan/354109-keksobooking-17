@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var sizePhoto = {
+  var PhotoSize = {
     WIDTH: 45,
     HEIGHT: 40
   };
@@ -17,15 +17,8 @@
     palace: 'Дворец'
   };
 
-  var removeChildrenFromParent = function (parentElement) {
-    var children = Array.prototype.slice.call(parentElement.children);
-    children.forEach(function (item) {
-      item.remove();
-    });
-  };
-
   var appendFeatureElements = function (parentElement, featuresArray) {
-    removeChildrenFromParent(parentElement);
+    parentElement.innerHTML = '';
     featuresArray.forEach(function (featureItem) {
       var featuresListElement = document.createElement('li');
       featuresListElement.classList.add('popup__feature');
@@ -35,12 +28,12 @@
   };
 
   var appendPhotoElements = function (parentElement, photosArray) {
-    removeChildrenFromParent(parentElement);
+    parentElement.innerHTML = '';
     photosArray.forEach(function (photo) {
       var photoElement = document.createElement('img');
       photoElement.classList.add('popup__photo');
-      photoElement.style.width = sizePhoto.WIDTH + 'px';
-      photoElement.style.height = sizePhoto.HEIGHT + 'px';
+      photoElement.style.width = PhotoSize.WIDTH + 'px';
+      photoElement.style.height = PhotoSize.HEIGHT + 'px';
       photoElement.alt = 'Фотография жилья';
       photoElement.src = photo;
       parentElement.appendChild(photoElement);
@@ -72,11 +65,9 @@
   };
 
 
-  var addCardToMap = function (cards) {
+  var addCardToMap = function (card) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 1; i++) { // Отображение первой карточки
-      fragment.appendChild(renderCard(cards[i]));
-    }
+    fragment.appendChild(renderCard(card));
     mapBlock.insertBefore(fragment, filtersContainer);
   };
 

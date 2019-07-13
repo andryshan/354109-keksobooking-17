@@ -7,6 +7,7 @@
 
   var downloadRequestData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
+    window.card.add(data[0]); // Первая карточка из полученных данных
     var onFilterSelectChange = function () {
       var filtredPins = window.filter(data);
       clearMapFromPins();

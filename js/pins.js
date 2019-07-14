@@ -23,8 +23,20 @@
     mapPinList.appendChild(fragment);
   };
 
+  var activeStateToPin = function (pin) {
+    pin.classList.add('map__pin--active');
+  };
+
+  var deactivateStateToPins = function (pins) {
+    pins.forEach(function (pin) {
+      pin.classList.remove('map__pin--active');
+    });
+  };
+
   window.pins = {
-    add: addPinsToMapPinList
+    add: addPinsToMapPinList,
+    activate: activeStateToPin,
+    deactivate: deactivateStateToPins
   };
 })();
 

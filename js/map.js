@@ -7,11 +7,12 @@
 
   var downloadRequestData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
-    window.card.add(data[0]); // Первая карточка из полученных данных
+    window.card.add(data);
     var onFilterSelectChange = function () {
       var filtredPins = window.filter(data);
       clearMapFromPins();
       window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
+      window.card.add(filtredPins.slice(0, MAX_COUNT_PINS));
     };
     housingType.addEventListener('change', onFilterSelectChange);
   };

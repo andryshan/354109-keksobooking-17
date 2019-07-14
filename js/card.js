@@ -64,14 +64,49 @@
     return cardElement;
   };
 
-
-  var addCardToMap = function (card) {
+  var addCardToMap = function (ad) {
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(renderCard(card));
-    mapBlock.insertBefore(fragment, filtersContainer);
+
+    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    mapPins.forEach(function (pin, index) {
+      var onPinClick = function () {
+
+        removeCard();
+        window.pins.activate(pin);
+
+        fragment.appendChild(renderCard(ad[index]));
+        mapBlock.insertBefore(fragment, filtersContainer);
+
+        var popupClose = document.querySelector('.popup__close');
+        popupClose.addEventListener('click', onCardCloseButtonClick);
+        document.addEventListener('keydown', onCardEscPress);
+      };
+      pin.addEventListener('click', onPinClick);
+    });
+  };
+
+  var removeCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+
+    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    window.pins.deactivate(mapPins);
+
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
+  var onCardCloseButtonClick = function () {
+    removeCard();
+  };
+
+  var onCardEscPress = function (evt) {
+    window.utils.onEscPress(evt, removeCard);
   };
 
   window.card = {
-    add: addCardToMap
+    add: addCardToMap,
+    remove: removeCard
   };
 })();

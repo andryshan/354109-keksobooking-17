@@ -66,23 +66,12 @@
 
   var addCardToMap = function (ad) {
     var fragment = document.createDocumentFragment();
+    fragment.appendChild(renderCard(ad));
+    mapBlock.insertBefore(fragment, filtersContainer);
 
-    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    mapPins.forEach(function (pin, index) {
-      var onPinClick = function () {
-
-        removeCard();
-        window.pins.activate(pin);
-
-        fragment.appendChild(renderCard(ad[index]));
-        mapBlock.insertBefore(fragment, filtersContainer);
-
-        var popupClose = document.querySelector('.popup__close');
-        popupClose.addEventListener('click', onCardCloseButtonClick);
-        document.addEventListener('keydown', onCardEscPress);
-      };
-      pin.addEventListener('click', onPinClick);
-    });
+    var popupClose = document.querySelector('.popup__close');
+    popupClose.addEventListener('click', onCardCloseButtonClick);
+    document.addEventListener('keydown', onCardEscPress);
   };
 
   var removeCard = function () {
@@ -91,8 +80,10 @@
       mapCard.remove();
     }
 
-    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    window.pins.deactivate(mapPins);
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin) {
+      window.pins.deactivate(activePin);
+    }
 
     document.removeEventListener('keydown', onCardEscPress);
   };

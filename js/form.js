@@ -3,6 +3,8 @@
   var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
   var FIELDS_DISABLE = true;
   var FIELDS_ACTIVE = false;
+  var MAX_NUMBER_OF_ROOMS = 100;
+  var MIN_NUMBER_OF_CAPACITY = 0;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
@@ -65,6 +67,38 @@
   timeInField.addEventListener('change', onTimeInFieldChange);
 
   timeOutField.addEventListener('change', onTimeOutFieldChange);
+
+
+  /* ----------- Функционал следующего задания ------------------ */
+
+  var numberOfRoomsField = form.querySelector('#room_number');
+  var capacityField = form.querySelector('#capacity');
+
+  var capacityMap = {
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
+  };
+
+  var onRoomsFieldChange = function () {
+    var availableCapacity = capacityMap[numberOfRoomsField.value];
+    if (numberOfRoomsField.value === String(MAX_NUMBER_OF_ROOMS)) {
+      capacityField.value = MIN_NUMBER_OF_CAPACITY;
+    } else {
+      capacityField.value = numberOfRoomsField.value;
+    }
+
+    Array.prototype.slice.call(capacityField.options).forEach(function (option) {
+      if (availableCapacity.includes(option.value)) {
+        option.disabled = false;
+      } else {
+        option.disabled = true;
+      }
+    });
+  };
+
+  numberOfRoomsField.addEventListener('change', onRoomsFieldChange);
 
   window.form = {
     activate: activateForm,

@@ -11,6 +11,15 @@
     pinElement.querySelector('img').src = pin['author'].avatar;
     pinElement.querySelector('img').alt = pin['offer'].title;
     pinElement.style = 'left: ' + (pin['location'].x - PIN_WIDTH_HALF) + 'px;' + 'top: ' + (pin['location'].y - PIN_HEIGHT) + 'px;';
+
+    var onPinClick = function () {
+      window.card.remove();
+      window.card.add(pin);
+      activateStateToPin(pinElement);
+    };
+
+    pinElement.addEventListener('click', onPinClick);
+
     return pinElement;
   };
 
@@ -23,8 +32,18 @@
     mapPinList.appendChild(fragment);
   };
 
+  var activateStateToPin = function (pin) {
+    pin.classList.add('map__pin--active');
+  };
+
+  var deactivateStateToPin = function (pin) {
+    pin.classList.remove('map__pin--active');
+  };
+
   window.pins = {
-    add: addPinsToMapPinList
+    add: addPinsToMapPinList,
+    activate: activateStateToPin,
+    deactivate: deactivateStateToPin
   };
 })();
 

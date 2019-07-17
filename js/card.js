@@ -51,6 +51,10 @@
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad['offer'].checkin + ' выезд до ' + ad['offer'].checkout;
     cardElement.querySelector('.popup__description').textContent = ad['offer'].description;
 
+    var popupClose = cardElement.querySelector('.popup__close');
+    popupClose.addEventListener('click', onCardCloseButtonClick);
+    document.addEventListener('keydown', onCardEscPress);
+
     var featuresList = cardElement.querySelector('.popup__features');
     appendFeatureElements(featuresList, ad['offer'].features);
 
@@ -69,9 +73,6 @@
     fragment.appendChild(renderCard(ad));
     mapBlock.insertBefore(fragment, filtersContainer);
 
-    var popupClose = document.querySelector('.popup__close');
-    popupClose.addEventListener('click', onCardCloseButtonClick);
-    document.addEventListener('keydown', onCardEscPress);
   };
 
   var removeCard = function () {

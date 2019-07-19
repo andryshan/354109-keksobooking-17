@@ -10,6 +10,7 @@
   var form = document.querySelector('.ad-form');
   var formFields = form.querySelectorAll('fieldset');
   var addressField = form.querySelector('#address');
+  var resetButton = form.querySelector('.ad-form__reset');
 
   var setStateToForm = function (disable) {
     for (var i = 0; i < formFields.length; i++) {
@@ -22,6 +23,12 @@
   var activateForm = function () {
     setStateToForm(FIELDS_ACTIVE);
     form.classList.remove('ad-form--disabled');
+    resetButton.addEventListener('click', onResetButtonClick);
+  };
+
+  var deactivateForm = function () {
+    setStateToForm(FIELDS_DISABLE);
+    form.classList.add('ad-form--disabled');
   };
 
   var setСoordinatesToAddress = function (isActive) {
@@ -87,7 +94,7 @@
       capacityField.value = numberOfRoomsField.value;
     }
 
-    Array.prototype.slice.call(capacityField.options).forEach(function (option) {
+    Array.from(capacityField).forEach(function (option) {
       if (availableCapacity.includes(option.value)) {
         option.disabled = false;
       } else {
@@ -97,6 +104,32 @@
   };
 
   numberOfRoomsField.addEventListener('change', onRoomsFieldChange);
+
+  var onSuccessSubmit = function () {
+    window.successLoad();
+    form.reset();
+    deactivateForm();
+    window.mainPin.reset();
+
+    setСoordinatesToAddress();
+
+    window.map.disable();
+    window.map.clear();
+    window.card.remove();
+    window.map.deactivateFilters();
+  };
+
+  var onResetButtonClick = function () {
+    onSuccessSubmit();
+    resetButton.removeEventListener('click', onResetButtonClick);
+  };
+
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), onSuccessSubmit, window.errorLoad);
+  };
+
+  form.addEventListener('submit', onFormSubmit);
 
   window.form = {
     activate: activateForm,

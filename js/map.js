@@ -27,13 +27,39 @@
     mapBlock.classList.remove('map--faded');
   };
 
+  var disableMapBlock = function () {
+    mapBlock.classList.add('map--faded');
+  };
+
   var fillMapWidthAds = function () {
     window.backend.load(downloadRequestData, window.errorLoad);
   };
 
+  var mapFiltersForm = document.querySelector('.map__filters');
+  var mapFilters = mapFiltersForm.querySelectorAll('.map__filter, .map__features');
+
+  var deactivateMapFilters = function () {
+    mapFilters.forEach(function (filter) {
+      filter.disabled = true;
+    });
+  };
+
+  deactivateMapFilters();
+
+  var activateMapFilters = function () {
+    mapFiltersForm.reset();
+    mapFilters.forEach(function (filter) {
+      filter.disabled = false;
+    });
+  };
+
   window.map = {
     enable: enableMapBlock,
-    fill: fillMapWidthAds
+    disable: disableMapBlock,
+    fill: fillMapWidthAds,
+    clear: clearMapFromPins,
+    activateFilters: activateMapFilters,
+    deactivateFilters: deactivateMapFilters
   };
 })();
 

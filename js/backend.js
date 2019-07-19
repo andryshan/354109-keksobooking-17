@@ -31,6 +31,13 @@
       var xhr = xhrSetup(onLoad, onError);
       xhr.open('GET', URL);
       xhr.send();
+    },
+
+    save: function (data, onLoad, onError) {
+      var URL = 'https://js.dump.academy/keksobooking';
+      var xhr = xhrSetup(onLoad, onError);
+      xhr.open('POST', URL);
+      xhr.send(data);
     }
   };
 })();

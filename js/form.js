@@ -69,8 +69,6 @@
   timeOutField.addEventListener('change', onTimeOutFieldChange);
 
 
-  /* ----------- Функционал следующего задания ------------------ */
-
   var numberOfRoomsField = form.querySelector('#room_number');
   var capacityField = form.querySelector('#capacity');
 

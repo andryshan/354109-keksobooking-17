@@ -39,6 +39,7 @@
   var mapFilters = mapFiltersForm.querySelectorAll('.map__filter, .map__features');
 
   var deactivateMapFilters = function () {
+    mapFiltersForm.reset();
     mapFilters.forEach(function (filter) {
       filter.disabled = true;
     });
@@ -47,7 +48,6 @@
   deactivateMapFilters();
 
   var activateMapFilters = function () {
-    mapFiltersForm.reset();
     mapFilters.forEach(function (filter) {
       filter.disabled = false;
     });

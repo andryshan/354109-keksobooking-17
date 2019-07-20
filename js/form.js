@@ -93,8 +93,7 @@
     } else {
       capacityField.value = numberOfRoomsField.value;
     }
-
-    Array.from(capacityField).forEach(function (option) {
+    Array.from(capacityField.options).forEach(function (option) {
       if (availableCapacity.includes(option.value)) {
         option.disabled = false;
       } else {
@@ -105,7 +104,17 @@
 
   numberOfRoomsField.addEventListener('change', onRoomsFieldChange);
 
-  var onSuccessSubmit = function () {
+  var onCapacityFieldChange = function () {
+    if (capacityMap[numberOfRoomsField.value].includes(capacityField.value)) {
+      capacityField.setCustomValidity('');
+    } else {
+      capacityField.setCustomValidity('Введите другое количество мест');
+    }
+  };
+
+  capacityField.addEventListener('change', onCapacityFieldChange);
+
+  var doResetPage = function () {
     window.successLoad();
     form.reset();
     deactivateForm();
@@ -120,13 +129,13 @@
   };
 
   var onResetButtonClick = function () {
-    onSuccessSubmit();
+    doResetPage();
     resetButton.removeEventListener('click', onResetButtonClick);
   };
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), onSuccessSubmit, window.errorLoad);
+    window.backend.save(new FormData(form), doResetPage, window.errorLoad);
   };
 
   form.addEventListener('submit', onFormSubmit);

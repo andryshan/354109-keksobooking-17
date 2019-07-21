@@ -5,6 +5,7 @@
   var FIELDS_ACTIVE = false;
   var MAX_NUMBER_OF_ROOMS = 100;
   var MIN_NUMBER_OF_CAPACITY = 0;
+  var MAP_FILTERS_ACTIVE = true;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
@@ -126,7 +127,7 @@
     window.map.disable();
     window.map.clear();
     window.card.remove();
-    window.map.deactivateFilters();
+    window.map.setStateFilter(MAP_FILTERS_ACTIVE);
   };
 
   var doSuccessLoad = function () {

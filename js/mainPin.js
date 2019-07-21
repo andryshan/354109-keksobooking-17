@@ -56,7 +56,7 @@
       window.form.activate();
       window.map.enable();
       window.form.setСoordinates(MAP_ACTIVE_STATE);
-      window.map.activateFilters();
+      window.map.setStateFilter();
       mapBlock.removeEventListener('mousemove', onPinMainMove);
       mapBlock.removeEventListener('mouseup', onPinMainMouseUp);
     };

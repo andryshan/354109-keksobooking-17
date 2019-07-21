@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var MAX_COUNT_PINS = 5;
+  var MAP_FILTERS_ACTIVE = true;
   var mapBlock = document.querySelector('.map');
 
   var housingType = document.querySelector('#housing-type');
@@ -38,19 +39,13 @@
   var mapFiltersForm = document.querySelector('.map__filters');
   var mapFilters = mapFiltersForm.querySelectorAll('.map__filter, .map__features');
 
-  var deactivateMapFilters = function () {
+  var setStateToMapFilters = function (isActive) {
     mapFilters.forEach(function (filter) {
-      filter.disabled = true;
+      filter.disabled = isActive;
     });
   };
 
-  deactivateMapFilters();
-
-  var activateMapFilters = function () {
-    mapFilters.forEach(function (filter) {
-      filter.disabled = false;
-    });
-  };
+  setStateToMapFilters(MAP_FILTERS_ACTIVE);
 
   var doResetMapFilters = function () {
     mapFiltersForm.reset();
@@ -61,8 +56,7 @@
     disable: disableMapBlock,
     fill: fillMapWidthAds,
     clear: clearMapFromPins,
-    activateFilters: activateMapFilters,
-    deactivateFilters: deactivateMapFilters,
+    setStateFilter: setStateToMapFilters,
     resetFilters: doResetMapFilters
   };
 })();

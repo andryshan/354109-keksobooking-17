@@ -39,7 +39,6 @@
   var mapFilters = mapFiltersForm.querySelectorAll('.map__filter, .map__features');
 
   var deactivateMapFilters = function () {
-    mapFiltersForm.reset();
     mapFilters.forEach(function (filter) {
       filter.disabled = true;
     });
@@ -53,13 +52,18 @@
     });
   };
 
+  var doResetMapFilters = function () {
+    mapFiltersForm.reset();
+  };
+
   window.map = {
     enable: enableMapBlock,
     disable: disableMapBlock,
     fill: fillMapWidthAds,
     clear: clearMapFromPins,
     activateFilters: activateMapFilters,
-    deactivateFilters: deactivateMapFilters
+    deactivateFilters: deactivateMapFilters,
+    resetFilters: doResetMapFilters
   };
 })();
 

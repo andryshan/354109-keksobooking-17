@@ -93,8 +93,9 @@
     } else {
       capacityField.value = numberOfRoomsField.value;
     }
+
     Array.from(capacityField.options).forEach(function (option) {
-      if (availableCapacity.includes(option.value)) {
+      if (availableCapacity.includes(String(option.value))) {
         option.disabled = false;
       } else {
         option.disabled = true;
@@ -115,8 +116,8 @@
   capacityField.addEventListener('change', onCapacityFieldChange);
 
   var doResetPage = function () {
-    window.successLoad();
     form.reset();
+    window.map.resetFilters();
     deactivateForm();
     window.mainPin.reset();
 
@@ -128,6 +129,11 @@
     window.map.deactivateFilters();
   };
 
+  var doSuccessLoad = function () {
+    window.successLoad();
+    doResetPage();
+  };
+
   var onResetButtonClick = function () {
     doResetPage();
     resetButton.removeEventListener('click', onResetButtonClick);
@@ -135,7 +141,7 @@
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), doResetPage, window.errorLoad);
+    window.backend.save(new FormData(form), doSuccessLoad, window.errorLoad);
   };
 
   form.addEventListener('submit', onFormSubmit);

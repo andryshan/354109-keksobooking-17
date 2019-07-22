@@ -5,11 +5,13 @@
   var FIELDS_ACTIVE = false;
   var MAX_NUMBER_OF_ROOMS = 100;
   var MIN_NUMBER_OF_CAPACITY = 0;
+  var MAP_FILTERS_ACTIVE = true;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var formFields = form.querySelectorAll('fieldset');
   var addressField = form.querySelector('#address');
+  var resetButton = form.querySelector('.ad-form__reset');
 
   var setStateToForm = function (disable) {
     for (var i = 0; i < formFields.length; i++) {
@@ -22,6 +24,12 @@
   var activateForm = function () {
     setStateToForm(FIELDS_ACTIVE);
     form.classList.remove('ad-form--disabled');
+    resetButton.addEventListener('click', onResetButtonClick);
+  };
+
+  var deactivateForm = function () {
+    setStateToForm(FIELDS_DISABLE);
+    form.classList.add('ad-form--disabled');
   };
 
   var setСoordinatesToAddress = function (isActive) {
@@ -87,8 +95,8 @@
       capacityField.value = numberOfRoomsField.value;
     }
 
-    Array.prototype.slice.call(capacityField.options).forEach(function (option) {
-      if (availableCapacity.includes(option.value)) {
+    Array.from(capacityField.options).forEach(function (option) {
+      if (availableCapacity.includes(String(option.value))) {
         option.disabled = false;
       } else {
         option.disabled = true;
@@ -97,6 +105,47 @@
   };
 
   numberOfRoomsField.addEventListener('change', onRoomsFieldChange);
+
+  var onCapacityFieldChange = function () {
+    if (capacityMap[numberOfRoomsField.value].includes(capacityField.value)) {
+      capacityField.setCustomValidity('');
+    } else {
+      capacityField.setCustomValidity('Введите другое количество мест');
+    }
+  };
+
+  capacityField.addEventListener('change', onCapacityFieldChange);
+
+  var doResetPage = function () {
+    form.reset();
+    window.map.resetFilters();
+    deactivateForm();
+    window.mainPin.reset();
+
+    setСoordinatesToAddress();
+
+    window.map.disable();
+    window.map.clear();
+    window.card.remove();
+    window.map.setStateFilter(MAP_FILTERS_ACTIVE);
+  };
+
+  var doSuccessLoad = function () {
+    window.successLoad();
+    doResetPage();
+  };
+
+  var onResetButtonClick = function () {
+    doResetPage();
+    resetButton.removeEventListener('click', onResetButtonClick);
+  };
+
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), doSuccessLoad, window.errorLoad);
+  };
+
+  form.addEventListener('submit', onFormSubmit);
 
   window.form = {
     activate: activateForm,

@@ -4,7 +4,9 @@
   var MAP_FILTERS_ACTIVE = true;
   var mapBlock = document.querySelector('.map');
 
-  var housingType = document.querySelector('#housing-type');
+  // var housingType = document.querySelector('#housing-type');
+
+  var mapFiltersList = document.querySelector('.map__filters');
 
   var downloadRequestData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
@@ -14,7 +16,7 @@
       clearMapFromPins();
       window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
     };
-    housingType.addEventListener('change', onFilterSelectChange);
+    mapFiltersList.addEventListener('change', onFilterSelectChange);
   };
 
   var clearMapFromPins = function () {

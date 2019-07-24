@@ -96,11 +96,7 @@
     }
 
     Array.from(capacityField.options).forEach(function (option) {
-      if (availableCapacity.includes(String(option.value))) {
-        option.disabled = false;
-      } else {
-        option.disabled = true;
-      }
+      option.disabled = !availableCapacity.includes(String(option.value));
     });
   };
 

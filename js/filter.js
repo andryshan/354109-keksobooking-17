@@ -6,7 +6,7 @@
   var housingGuests = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelectorAll('.map__filters input[name=features]');
 
-  var pricesMap = {
+  var housingPricesMap = {
     low: {
       min: 0,
       max: 10000
@@ -21,25 +21,25 @@
     }
   };
 
-  var doCheckHousingType = function (it) {
-    return housingType.value === 'any' || it.offer.type === housingType.value;
+  var doCheckHousingType = function (ad) {
+    return housingType.value === 'any' || ad.offer.type === housingType.value;
   };
 
-  var doCheckHousingPrice = function (it) {
-    return housingPrice.value === 'any' || it.offer.price >= pricesMap[housingPrice.value].min && it.offer.price <= pricesMap[housingPrice.value].max;
+  var doCheckHousingPrice = function (ad) {
+    return housingPrice.value === 'any' || ad.offer.price >= housingPricesMap[housingPrice.value].min && ad.offer.price <= housingPricesMap[housingPrice.value].max;
   };
 
-  var doCheckHousingRooms = function (it) {
-    return housingRooms.value === 'any' || it.offer.rooms === Number(housingRooms.value);
+  var doCheckHousingRooms = function (ad) {
+    return housingRooms.value === 'any' || ad.offer.rooms === Number(housingRooms.value);
   };
 
-  var doCheckHousingGuests = function (it) {
-    return housingGuests.value === 'any' || it.offer.guests === Number(housingGuests.value);
+  var doCheckHousingGuests = function (ad) {
+    return housingGuests.value === 'any' || ad.offer.guests === Number(housingGuests.value);
   };
 
-  var doCheckFeatures = function (it, selectedFeatures) {
+  var doCheckFeatures = function (ad, selectedFeatures) {
     return selectedFeatures.every(function (feature) {
-      return it.offer.features.includes(feature);
+      return ad.offer.features.includes(feature);
     });
   };
 

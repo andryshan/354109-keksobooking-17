@@ -7,7 +7,7 @@
     window.utils.onEscPress(evt, closeSuccessAlert);
   };
 
-  var renderSuccessLoad = function () {
+  var doRenderSuccess = function () {
     openSuccessAlert();
   };
 
@@ -27,6 +27,6 @@
     closeSuccessAlert();
   };
 
-  window.successLoad = renderSuccessLoad;
+  window.successLoad = doRenderSuccess;
 })();
 

@@ -11,7 +11,7 @@
     var onFilterSelectChange = function () {
       var addFiltredPinsToMap = function () {
         var filtredPins = window.filter(data);
-        clearMapFromPins();
+        doClearMapFromPins();
         window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
       };
       window.debounce(addFiltredPinsToMap);
@@ -19,7 +19,7 @@
     mapFiltersList.addEventListener('change', onFilterSelectChange);
   };
 
-  var clearMapFromPins = function () {
+  var doClearMapFromPins = function () {
     var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPins.forEach(function (element) {
       element.remove();
@@ -34,7 +34,7 @@
     mapBlock.classList.add('map--faded');
   };
 
-  var fillMapWidthAds = function () {
+  var doFillMapWidthAds = function () {
     window.backend.load(downloadRequestData, window.errorLoad);
   };
 
@@ -56,8 +56,8 @@
   window.map = {
     enable: enableMapBlock,
     disable: disableMapBlock,
-    fill: fillMapWidthAds,
-    clear: clearMapFromPins,
+    fill: doFillMapWidthAds,
+    clear: doClearMapFromPins,
     setStateFilter: setStateToMapFilters,
     resetFilters: doResetMapFilters
   };

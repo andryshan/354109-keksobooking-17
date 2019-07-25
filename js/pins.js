@@ -1,12 +1,12 @@
 'use strict';
 (function () {
-  var PIN_WIDTH_HALF = 50 / 2;
+  var PIN_WIDTH_HALF = 25;
   var PIN_HEIGHT = 70;
 
   var mapPinList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var renderPin = function (pin) {
+  var doRenderPin = function (pin) {
     var pinElement = mapPinTemplate.cloneNode(true);
     pinElement.querySelector('img').src = pin['author'].avatar;
     pinElement.querySelector('img').alt = pin['offer'].title;
@@ -27,7 +27,7 @@
     var takeNumber = pins.length;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < takeNumber; i++) {
-      fragment.appendChild(renderPin(pins[i]));
+      fragment.appendChild(doRenderPin(pins[i]));
     }
     mapPinList.appendChild(fragment);
   };

@@ -5,10 +5,10 @@
   var PIN_X_START = 0;
   var PIN_X_END = 1200;
   var PIN_MAIN_WIDTH = 65;
-  var MAP_ACTIVE_STATE = true;
-  var MAP_DISABLE_STATE = false;
   var PIN_MAIN_X_DEFAULT = 570;
   var PIN_MAIN_Y_DEFAULT = 375;
+  var MAP_ACTIVE_STATE = true;
+  var MAP_DISABLE_STATE = false;
 
   var mapBlock = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');

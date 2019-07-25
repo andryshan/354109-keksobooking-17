@@ -1,11 +1,11 @@
 'use strict';
 (function () {
   var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
-  var FIELDS_DISABLE = true;
-  var FIELDS_ACTIVE = false;
   var MAX_NUMBER_OF_ROOMS = 100;
   var MIN_NUMBER_OF_CAPACITY = 0;
   var MAP_FILTERS_ACTIVE = true;
+  var FIELDS_DISABLE = true;
+  var FIELDS_ACTIVE = false;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');

@@ -6,7 +6,6 @@
   };
 
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-
   var mapBlock = document.querySelector('.map');
   var filtersContainer = document.querySelector('.map__filters-container');
 
@@ -40,7 +39,7 @@
     });
   };
 
-  var renderCard = function (ad) {
+  var doRenderCard = function (ad) {
     var cardElement = cardTemplate.cloneNode(true);
     cardElement.querySelector('.popup__avatar').src = ad['author'].avatar;
     cardElement.querySelector('.popup__title').textContent = ad['offer'].title;
@@ -70,9 +69,8 @@
 
   var addCardToMap = function (ad) {
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(renderCard(ad));
+    fragment.appendChild(doRenderCard(ad));
     mapBlock.insertBefore(fragment, filtersContainer);
-
   };
 
   var removeCard = function () {

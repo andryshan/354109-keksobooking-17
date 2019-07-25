@@ -11,7 +11,7 @@
     var onFilterSelectChange = function () {
       var addFiltredPinsToMap = function () {
         var filtredPins = window.filter(data);
-        doClearMapFromPins();
+        clearMapFromPins();
         window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
       };
       window.debounce(addFiltredPinsToMap);
@@ -19,7 +19,7 @@
     mapFiltersList.addEventListener('change', onFilterSelectChange);
   };
 
-  var doClearMapFromPins = function () {
+  var clearMapFromPins = function () {
     var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPins.forEach(function (element) {
       element.remove();
@@ -35,7 +35,7 @@
   };
 
   var doFillMapWidthAds = function () {
-    window.backend.load(downloadRequestData, window.errorLoad);
+    window.backend.load(downloadRequestData, window.renderError);
   };
 
   var mapFiltersForm = document.querySelector('.map__filters');
@@ -49,7 +49,7 @@
 
   setStateToMapFilters(MAP_FILTERS_ACTIVE);
 
-  var doResetMapFilters = function () {
+  var resetMapFilters = function () {
     mapFiltersForm.reset();
   };
 
@@ -57,9 +57,9 @@
     enable: enableMapBlock,
     disable: disableMapBlock,
     fill: doFillMapWidthAds,
-    clear: doClearMapFromPins,
+    clear: clearMapFromPins,
     setStateFilter: setStateToMapFilters,
-    resetFilters: doResetMapFilters
+    resetFilters: resetMapFilters
   };
 })();
 

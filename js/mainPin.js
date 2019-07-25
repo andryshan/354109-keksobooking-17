@@ -75,13 +75,13 @@
 
   mapPinMain.addEventListener('mousedown', onPinMainClick);
 
-  var doResetMainPin = function () {
+  var resetMainPin = function () {
     mapPinMain.style.top = PIN_MAIN_Y_DEFAULT + 'px';
     mapPinMain.style.left = PIN_MAIN_X_DEFAULT + 'px';
   };
 
   window.mainPin = {
-    reset: doResetMainPin
+    reset: resetMainPin
   };
 })();
 

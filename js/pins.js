@@ -6,7 +6,7 @@
   var mapPinList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var doRenderPin = function (pin) {
+  var renderPin = function (pin) {
     var pinElement = mapPinTemplate.cloneNode(true);
     pinElement.querySelector('img').src = pin['author'].avatar;
     pinElement.querySelector('img').alt = pin['offer'].title;
@@ -27,7 +27,7 @@
     var takeNumber = pins.length;
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < takeNumber; i++) {
-      fragment.appendChild(doRenderPin(pins[i]));
+      fragment.appendChild(renderPin(pins[i]));
     }
     mapPinList.appendChild(fragment);
   };

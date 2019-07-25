@@ -112,7 +112,7 @@
 
   capacityField.addEventListener('change', onCapacityFieldChange);
 
-  var doResetPage = function () {
+  var resetPage = function () {
     form.reset();
     window.map.resetFilters();
     deactivateForm();
@@ -126,19 +126,19 @@
     window.map.setStateFilter(MAP_FILTERS_ACTIVE);
   };
 
-  var doSuccessLoad = function () {
-    window.successLoad();
-    doResetPage();
+  var loadSuccessfully = function () {
+    window.renderSuccess();
+    resetPage();
   };
 
   var onResetButtonClick = function () {
-    doResetPage();
+    resetPage();
     resetButton.removeEventListener('click', onResetButtonClick);
   };
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), doSuccessLoad, window.errorLoad);
+    window.backend.save(new FormData(form), loadSuccessfully, window.renderError);
   };
 
   form.addEventListener('submit', onFormSubmit);

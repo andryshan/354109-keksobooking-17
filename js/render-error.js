@@ -8,11 +8,11 @@
     window.utils.onEscPress(evt, closeErrorAlert);
   };
 
-  var doRenderError = function () {
-    doShowErrorAlert();
+  var renderAnErrorAlert = function () {
+    showErrorAlert();
   };
 
-  var doShowErrorAlert = function () {
+  var showErrorAlert = function () {
     main.appendChild(errorTemplate);
     buttonError.addEventListener('click', onButtonErrorClick);
     document.addEventListener('keydown', onErrorAlertLoadEscPress);
@@ -33,6 +33,6 @@
     closeErrorAlert();
   };
 
-  window.errorLoad = doRenderError;
+  window.renderError = renderAnErrorAlert;
 })();
 

@@ -21,23 +21,23 @@
     }
   };
 
-  var doCheckHousingType = function (ad) {
+  var checkHousingType = function (ad) {
     return housingType.value === 'any' || ad.offer.type === housingType.value;
   };
 
-  var doCheckHousingPrice = function (ad) {
+  var checkHousingPrice = function (ad) {
     return housingPrice.value === 'any' || ad.offer.price >= housingPricesMap[housingPrice.value].min && ad.offer.price <= housingPricesMap[housingPrice.value].max;
   };
 
-  var doCheckHousingRooms = function (ad) {
+  var checkHousingRooms = function (ad) {
     return housingRooms.value === 'any' || ad.offer.rooms === Number(housingRooms.value);
   };
 
-  var doCheckHousingGuests = function (ad) {
+  var checkHousingGuests = function (ad) {
     return housingGuests.value === 'any' || ad.offer.guests === Number(housingGuests.value);
   };
 
-  var doCheckFeatures = function (ad, selectedFeatures) {
+  var checkFeatures = function (ad, selectedFeatures) {
     return selectedFeatures.every(function (feature) {
       return ad.offer.features.includes(feature);
     });
@@ -51,18 +51,18 @@
     });
   };
 
-  var doFilteringData = function (data) {
+  var filteringData = function (data) {
     var filteredPins = data.filter(function (it) {
       var filteredFeatures = getSelectedFeatures();
-      return doCheckHousingType(it) &&
-        doCheckHousingPrice(it) &&
-        doCheckHousingRooms(it) &&
-        doCheckHousingGuests(it) &&
-        doCheckFeatures(it, filteredFeatures);
+      return checkHousingType(it) &&
+        checkHousingPrice(it) &&
+        checkHousingRooms(it) &&
+        checkHousingGuests(it) &&
+        checkFeatures(it, filteredFeatures);
     });
     return filteredPins;
   };
 
-  window.filter = doFilteringData;
+  window.filter = filteringData;
 })();
 

@@ -44,14 +44,13 @@
   };
 
   var getSelectedFeatures = function () {
-    var featuresListArray = Array.from(housingFeatures);
-    var checkedFeatures = featuresListArray.filter(function (input) {
-      return input.checked;
+    var selectedFeatures = [];
+    housingFeatures.forEach(function (input) {
+      if (input.checked) {
+        selectedFeatures.push(input.value);
+      }
     });
-    var valuesSelectedFeatures = checkedFeatures.map(function (input) {
-      return input.value;
-    });
-    return valuesSelectedFeatures;
+    return selectedFeatures;
   };
 
   var filteringData = function (data) {

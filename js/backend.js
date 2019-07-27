@@ -2,7 +2,7 @@
 (function () {
   var SUCCESS_STATUS_CODE = 200;
 
-  var xhrSetup = function (onLoad, onError) {
+  var createXhrSetup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json'; // Распаршиваем в JSON (Нормальный js обьект)
 
@@ -28,14 +28,14 @@
   window.backend = {
     load: function (onLoad, onError) {
       var URL = 'https://js.dump.academy/keksobooking/data';
-      var xhr = xhrSetup(onLoad, onError);
+      var xhr = createXhrSetup(onLoad, onError);
       xhr.open('GET', URL);
       xhr.send();
     },
 
     save: function (data, onLoad, onError) {
       var URL = 'https://js.dump.academy/keksobooking';
-      var xhr = xhrSetup(onLoad, onError);
+      var xhr = createXhrSetup(onLoad, onError);
       xhr.open('POST', URL);
       xhr.send(data);
     }

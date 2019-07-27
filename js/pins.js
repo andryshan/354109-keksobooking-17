@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var PIN_WIDTH_HALF = 50 / 2;
+  var PIN_WIDTH_HALF = 25;
   var PIN_HEIGHT = 70;
 
   var mapPinList = document.querySelector('.map__pins');

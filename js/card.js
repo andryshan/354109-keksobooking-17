@@ -6,7 +6,6 @@
   };
 
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-
   var mapBlock = document.querySelector('.map');
   var filtersContainer = document.querySelector('.map__filters-container');
 
@@ -72,7 +71,6 @@
     var fragment = document.createDocumentFragment();
     fragment.appendChild(renderCard(ad));
     mapBlock.insertBefore(fragment, filtersContainer);
-
   };
 
   var removeCard = function () {

@@ -8,7 +8,7 @@
     window.utils.onEscPress(evt, closeErrorAlert);
   };
 
-  var renderErrorLoad = function () {
+  var renderAnErrorAlert = function () {
     showErrorAlert();
   };
 
@@ -33,6 +33,6 @@
     closeErrorAlert();
   };
 
-  window.errorLoad = renderErrorLoad;
+  window.renderError = renderAnErrorAlert;
 })();
 

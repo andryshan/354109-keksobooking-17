@@ -1,11 +1,11 @@
 'use strict';
 (function () {
   var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
-  var FIELDS_DISABLE = true;
-  var FIELDS_ACTIVE = false;
   var MAX_NUMBER_OF_ROOMS = 100;
   var MIN_NUMBER_OF_CAPACITY = 0;
   var MAP_FILTERS_ACTIVE = true;
+  var FIELDS_DISABLE = true;
+  var FIELDS_ACTIVE = false;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
@@ -96,11 +96,7 @@
     }
 
     Array.from(capacityField.options).forEach(function (option) {
-      if (availableCapacity.includes(String(option.value))) {
-        option.disabled = false;
-      } else {
-        option.disabled = true;
-      }
+      option.disabled = !availableCapacity.includes(String(option.value));
     });
   };
 
@@ -116,7 +112,7 @@
 
   capacityField.addEventListener('change', onCapacityFieldChange);
 
-  var doResetPage = function () {
+  var resetPage = function () {
     form.reset();
     window.map.resetFilters();
     deactivateForm();
@@ -130,19 +126,19 @@
     window.map.setStateFilter(MAP_FILTERS_ACTIVE);
   };
 
-  var doSuccessLoad = function () {
-    window.successLoad();
-    doResetPage();
+  var loadSuccessfully = function () {
+    window.renderSuccess();
+    resetPage();
   };
 
   var onResetButtonClick = function () {
-    doResetPage();
+    resetPage();
     resetButton.removeEventListener('click', onResetButtonClick);
   };
 
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), doSuccessLoad, window.errorLoad);
+    window.backend.save(new FormData(form), loadSuccessfully, window.renderError);
   };
 
   form.addEventListener('submit', onFormSubmit);

@@ -3,18 +3,18 @@
   var MAX_COUNT_PINS = 5;
   var MAP_FILTERS_ACTIVE = true;
   var mapBlock = document.querySelector('.map');
-
-  var housingType = document.querySelector('#housing-type');
+  var mapFiltersList = document.querySelector('.map__filters');
 
   var downloadRequestData = function (data) {
     window.pins.add(data.slice(0, MAX_COUNT_PINS));
 
-    var onFilterSelectChange = function () {
+    var onFilterSelectChange = window.debounce(function () {
       var filtredPins = window.filter(data);
       clearMapFromPins();
       window.pins.add(filtredPins.slice(0, MAX_COUNT_PINS));
-    };
-    housingType.addEventListener('change', onFilterSelectChange);
+    });
+
+    mapFiltersList.addEventListener('change', onFilterSelectChange);
   };
 
   var clearMapFromPins = function () {
@@ -33,7 +33,7 @@
   };
 
   var fillMapWidthAds = function () {
-    window.backend.load(downloadRequestData, window.errorLoad);
+    window.backend.load(downloadRequestData, window.renderError);
   };
 
   var mapFiltersForm = document.querySelector('.map__filters');
@@ -47,7 +47,7 @@
 
   setStateToMapFilters(MAP_FILTERS_ACTIVE);
 
-  var doResetMapFilters = function () {
+  var resetMapFilters = function () {
     mapFiltersForm.reset();
   };
 
@@ -57,7 +57,7 @@
     fill: fillMapWidthAds,
     clear: clearMapFromPins,
     setStateFilter: setStateToMapFilters,
-    resetFilters: doResetMapFilters
+    resetFilters: resetMapFilters
   };
 })();
 

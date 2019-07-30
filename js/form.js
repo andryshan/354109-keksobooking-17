@@ -3,6 +3,10 @@
   var MAP_PIN_MAIN_HEIGHT = 81; // Высота главной метки с острием
   var MAX_NUMBER_OF_ROOMS = 100;
   var MIN_NUMBER_OF_CAPACITY = 0;
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var PHOTO_ELEMENT_WIDTH = 70;
+  var PHOTO_ELEMENT_HEIGHT = 70;
+  var PHOTO_ELEMENT_BORDER_RADIUS = 5;
   var MAP_FILTERS_ACTIVE = true;
   var FIELDS_DISABLE = true;
   var FIELDS_ACTIVE = false;
@@ -117,6 +121,8 @@
     window.map.resetFilters();
     deactivateForm();
     window.mainPin.reset();
+    resetAvatar();
+    resetPhotosBlock();
 
     setСoordinatesToAddress();
 
@@ -143,9 +149,101 @@
 
   form.addEventListener('submit', onFormSubmit);
 
+  var fileChooserAvatar = form.querySelector('.ad-form-header__input');
+  var previewAvatar = form.querySelector('.ad-form-header__preview img');
+  var fileChooserPhotos = form.querySelector('.ad-form__input');
+  var photoPlaceTemplate = form.querySelector('.ad-form__photo');
+  var photosContainer = form.querySelector('.ad-form__photo-container');
+  var fragment;
+
+  var uploadImage = function (fileChooser, cb) {
+    var files = Array.from(fileChooser.files);
+
+    var fileNames = files.map(function (file) {
+      return file.name.toLowerCase();
+    });
+
+    var matches = fileNames.every(function (name) {
+      return FILE_TYPES.some(function (type) {
+        return name.endsWith(type);
+      });
+    });
+
+    if (matches) {
+      cb(files);
+    }
+  };
+
+  var addAvatarImage = function (files) {
+    var reader = new FileReader();
+
+    reader.readAsDataURL(files[0]);
+    reader.addEventListener('load', function () {
+      previewAvatar.src = reader.result;
+    });
+  };
+
+  var createPhotoElement = function () {
+    var photoElement = document.createElement('img');
+    photoElement.alt = 'Загруженное фото';
+    photoElement.style.width = PHOTO_ELEMENT_WIDTH + 'px';
+    photoElement.style.height = PHOTO_ELEMENT_HEIGHT + 'px';
+    photoElement.style.borderRadius = PHOTO_ELEMENT_BORDER_RADIUS + 'px';
+    return photoElement;
+  };
+
+  var addPhotosImages = function (files) {
+    fragment = document.createDocumentFragment();
+
+    files.forEach(function (file) {
+      addPhotoOfHousing(file);
+    });
+
+    photoPlaceTemplate.remove();
+    photosContainer.appendChild(fragment);
+  };
+
+  var addPhotoOfHousing = function (file) {
+    var reader = new FileReader();
+    var photoElement = createPhotoElement();
+    var photoPlace = photoPlaceTemplate.cloneNode(true);
+
+    photoPlace.appendChild(photoElement);
+    fragment.appendChild(photoPlace);
+
+    reader.readAsDataURL(file);
+    reader.addEventListener('load', function () {
+      photoElement.src = reader.result;
+    });
+  };
+
+
+  var onFileChooserAvatarChange = function () {
+    uploadImage(fileChooserAvatar, addAvatarImage);
+  };
+
+  var onFileChooserPhotosChange = function () {
+    uploadImage(fileChooserPhotos, addPhotosImages);
+  };
+
+  fileChooserAvatar.addEventListener('change', onFileChooserAvatarChange);
+  fileChooserPhotos.addEventListener('change', onFileChooserPhotosChange);
+
+  var resetAvatar = function () {
+    previewAvatar.src = 'img/muffin-grey.svg';
+  };
+
+  var resetPhotosBlock = function () {
+    var photos = document.querySelectorAll('.ad-form__photo');
+    photos.forEach(function (photo) {
+      photo.remove();
+    });
+    photosContainer.appendChild(photoPlaceTemplate);
+  };
+
   window.form = {
     activate: activateForm,
-    setСoordinates: setСoordinatesToAddress
+    setСoordinates: setСoordinatesToAddress,
   };
 })();
 
